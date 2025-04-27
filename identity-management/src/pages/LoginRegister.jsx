@@ -6,25 +6,47 @@ export default function LoginRegister() {
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [fingerprintScanned, setFingerprintScanned] = useState(false);
+  const [faceScanned, setFaceScanned] = useState(false);
+  const [faceScanLoading, setFaceScanLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleFingerprintScan = () => {
-    // Simulate fingerprint scan
     alert("Fingerprint scanned successfully!");
     setFingerprintScanned(true);
   };
 
+  const handleFaceScan = async () => {
+    setFaceScanLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/scan-face', {
+        method: 'POST',
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || "Face scanned successfully!");
+        setFaceScanned(true);
+      } else {
+        alert('Face scan failed: ' + (data.error || "Unknown error"));
+      }
+    } catch (error) {
+      console.error('Error scanning face:', error);
+      alert('Error connecting to face scan server.');
+    } finally {
+      setFaceScanLoading(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!fingerprintScanned) {
-      alert("Please scan your fingerprint first.");
+    if (!fingerprintScanned || !faceScanned) {
+      alert("Please scan both your fingerprint and face first.");
       return;
     }
 
     const formType = isLogin ? "Login" : "Register";
     alert(`${formType} Successful!\nUserID: ${userID}`);
 
-    // Simulate login/register success and redirect to dashboard
     navigate("/dashboard");
   };
 
@@ -58,6 +80,21 @@ export default function LoginRegister() {
           >
             {fingerprintScanned ? "Fingerprint Scanned" : "Scan Fingerprint"}
           </button>
+
+          {/* New Scan Face Button */}
+          <button
+            type="button"
+            onClick={handleFaceScan}
+            className={`w-full ${faceScanned ? 'bg-green-500' : 'bg-purple-500'} text-white p-2 rounded-xl`}
+            disabled={faceScanLoading}
+          >
+            {faceScanLoading
+              ? "Scanning Face..."
+              : faceScanned
+              ? "Face Scanned"
+              : "Scan your Face"}
+          </button>
+
           <button
             type="submit"
             className="w-full bg-green-500 text-white p-2 rounded-xl"
@@ -66,7 +103,7 @@ export default function LoginRegister() {
           </button>
         </form>
         <p className="text-center mt-4 text-sm">
-          {isLogin ? "Don't have an account?" : "Already have an account?"} {" "}
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <button
             onClick={() => setIsLogin(!isLogin)}
             className="text-blue-500 underline"
