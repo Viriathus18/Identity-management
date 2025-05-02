@@ -68,7 +68,7 @@ export default function Dashboard() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-3xl font-bold mb-1">Hey there, Ankit Chakraborty!</h2>
+              <h2 className="text-3xl font-bold mb-1">Hey there, Adarsh Kumar Tiwary!</h2>
               <p className="text-gray-500">Welcome back, we’re happy to have you here!</p>
             </div>
             <img

@@ -132,4 +132,4 @@ def scan_face_api():
         return jsonify({"error": "Face scan failed!"}), 400
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=6000)
