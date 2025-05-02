@@ -156,7 +156,7 @@ export default function LoginRegister() {
               >
                 <input
                   type="text"
-                  placeholder="Email address"
+                  placeholder="Username"
                   value={userID}
                   onChange={(e) => setUserID(e.target.value)}
                   className="w-full p-3 bg-zinc-800 rounded-lg focus:outline-none"
