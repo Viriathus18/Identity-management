@@ -40,7 +40,7 @@ def scan_face():
     except Exception as e:
         print(f"❌ Error during face encoding: {e}")
         return False
-
+    # random commit
     # --- Start webcam ---
     video_capture = cv2.VideoCapture('/dev/video-cam')  # replace with 0 for default camera
 
