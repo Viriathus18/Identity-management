@@ -107,7 +107,7 @@ export default function Dashboard() {
               <p className="text-[#a89984]">Welcome back, we’re happy to have you here!</p>
             </div>
             <img
-              src="./user-avatar.png"
+              src="./img1.jpeg"
               alt="User Avatar"
               className="w-12 h-12 rounded-full shadow-md"
             />
