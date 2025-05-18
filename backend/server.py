@@ -11,7 +11,7 @@ CORS(app)  # Allow frontend to access backend
 
 def scan_face():
     # --- Load and convert reference image ---
-    image_path = 'img1.jpeg'
+    image_path = 'img.jpg'
     try:
         pil_image = Image.open(image_path).convert('RGB')
         reference_image = np.array(pil_image)
@@ -42,7 +42,7 @@ def scan_face():
         return False
     # random commit
     # --- Start webcam ---
-    video_capture = cv2.VideoCapture('/dev/video-cam')  # replace with 0 for default camera
+    video_capture = cv2.VideoCapture(0)  # replace with 0 for default camera
 
     if not video_capture.isOpened():
         print("❌ Could not access the webcam.")
