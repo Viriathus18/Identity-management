@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 export default function LoginRegister() {
-  const [step, setStep] = useState("login"); // login → fingerprint → face
-  const [mode, setMode] = useState("login"); // "login" or "signup"
+  const [step, setStep] = useState("login");
+  const [mode, setMode] = useState("login");
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [fingerprintScanned, setFingerprintScanned] = useState(false);
@@ -15,11 +15,6 @@ export default function LoginRegister() {
 
   const navigate = useNavigate();
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   setStep("fingerprint");
-  // };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -28,9 +23,10 @@ export default function LoginRegister() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userID, password }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
+        localStorage.setItem("authToken", data.token);
         setStep("fingerprint");
       } else {
         alert("Login failed: " + data.msg);
@@ -77,8 +73,8 @@ export default function LoginRegister() {
         setStep("face");
         setFingerprintScanLoading(false);
         setFingerprintScanned(false);
-      }, 1500); // Wait to show tick before transition
-    }, 2000); // Simulated fingerprint scan duration
+      }, 1500);
+    }, 2000);
   };
 
   const handleFaceScan = async () => {
@@ -104,7 +100,7 @@ export default function LoginRegister() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white p-4 font-sans animate-gradient bg-gradient-dark">
+    <div className="min-h-screen flex items-center justify-center text-[#ebdbb2] p-4 font-sans bg-[#1d2021]">
       <div className="w-full max-w-md">
         <AnimatePresence mode="wait">
           {step === "login" && (
@@ -114,23 +110,23 @@ export default function LoginRegister() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="bg-zinc-900 p-8 rounded-2xl shadow-lg"
+              className="bg-[#282828] p-8 rounded-2xl shadow-lg"
             >
               <div className="text-center mb-6">
                 <img
                   src="logo.webp"
                   alt="3D Logo"
-                  className="mx-auto mb-4 w-14 h-14 rounded-2xl shadow-lg border border-zinc-700"
+                  className="mx-auto mb-4 w-14 h-14 rounded-2xl shadow-lg border border-[#3c3836]"
                 />
                 <div className="text-3xl font-bold">
                   {mode === "login" ? "Secure Login" : "Register"}
                 </div>
-                <p className="text-zinc-400 text-sm mt-2">
+                <p className="text-[#a89984] text-sm mt-2">
                   {mode === "login" ? (
                     <>
                       Don’t have an account yet?{" "}
                       <span
-                        className="text-blue-400 cursor-pointer"
+                        className="text-[#fabd2f] cursor-pointer"
                         onClick={() => setMode("signup")}
                       >
                         Sign up
@@ -140,7 +136,7 @@ export default function LoginRegister() {
                     <>
                       Already have an account?{" "}
                       <span
-                        className="text-blue-400 cursor-pointer"
+                        className="text-[#fabd2f] cursor-pointer"
                         onClick={() => setMode("login")}
                       >
                         Login
@@ -159,7 +155,7 @@ export default function LoginRegister() {
                   placeholder="Username"
                   value={userID}
                   onChange={(e) => setUserID(e.target.value)}
-                  className="w-full p-3 bg-zinc-800 rounded-lg focus:outline-none"
+                  className="w-full p-3 bg-[#3c3836] text-[#ebdbb2] placeholder-[#a89984] rounded-lg focus:outline-none"
                   required
                 />
                 <input
@@ -167,12 +163,12 @@ export default function LoginRegister() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-3 bg-zinc-800 rounded-lg focus:outline-none"
+                  className="w-full p-3 bg-[#3c3836] text-[#ebdbb2] placeholder-[#a89984] rounded-lg focus:outline-none"
                   required
                 />
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+                  className="w-full bg-[#fabd2f] hover:bg-[#fe8019] text-[#1d2021] py-3 rounded-lg font-semibold"
                 >
                   {mode === "login" ? "Login" : "Register"}
                 </button>
@@ -180,11 +176,11 @@ export default function LoginRegister() {
 
               {mode === "login" && (
                 <>
-                  <div className="my-6 text-center text-zinc-500">OR</div>
+                  <div className="my-6 text-center text-[#a89984]">OR</div>
                   <div className="flex justify-between gap-2">
-                    <button className="flex-1 bg-zinc-800 p-3 rounded-lg"></button>
-                    <button className="flex-1 bg-zinc-800 p-3 rounded-lg">G</button>
-                    <button className="flex-1 bg-zinc-800 p-3 rounded-lg">X</button>
+                    <button className="flex-1 bg-[#3c3836] text-[#ebdbb2] p-3 rounded-lg"></button>
+                    <button className="flex-1 bg-[#3c3836] text-[#ebdbb2] p-3 rounded-lg">G</button>
+                    <button className="flex-1 bg-[#3c3836] text-[#ebdbb2] p-3 rounded-lg">X</button>
                   </div>
                 </>
               )}
@@ -198,10 +194,14 @@ export default function LoginRegister() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="bg-zinc-900 p-8 rounded-2xl shadow-lg text-center"
+              className="bg-[#282828] p-8 rounded-2xl shadow-lg text-center"
             >
               <h2 className="text-2xl font-bold mb-6">Scan your Fingerprint</h2>
-              <div className="text-zinc-400 mb-4">{fingerprintScanned ? "Fingerprint scanned!" : "Place your finger on the scanner"}</div>
+              <div className="text-[#a89984] mb-4">
+                {fingerprintScanned
+                  ? "Fingerprint scanned!"
+                  : "Place your finger on the scanner"}
+              </div>
 
               {fingerprintScanned ? (
                 <motion.div
@@ -210,7 +210,7 @@ export default function LoginRegister() {
                   className="w-20 h-20 mx-auto mb-4"
                 >
                   <svg
-                    className="w-full h-full text-green-500"
+                    className="w-full h-full text-[#b8bb26]"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="4"
@@ -229,7 +229,7 @@ export default function LoginRegister() {
 
               <button
                 onClick={handleFingerprintScan}
-                className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold"
+                className="mt-4 w-full bg-[#d3869b] hover:bg-[#b16286] text-[#1d2021] py-3 rounded-lg font-semibold"
                 disabled={fingerprintScanLoading || fingerprintScanned}
               >
                 {fingerprintScanLoading
@@ -248,10 +248,12 @@ export default function LoginRegister() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="bg-zinc-900 p-8 rounded-2xl shadow-lg text-center"
+              className="bg-[#282828] p-8 rounded-2xl shadow-lg text-center"
             >
               <h2 className="text-2xl font-bold mb-6">Scan your Face</h2>
-              <div className="text-zinc-400 mb-4">{faceScanned ? "Face scanned successfully!" : "Looking for your face..."}</div>
+              <div className="text-[#a89984] mb-4">
+                {faceScanned ? "Face scanned successfully!" : "Looking for your face..."}
+              </div>
 
               {!faceScanned ? (
                 <img
@@ -264,16 +266,15 @@ export default function LoginRegister() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="w-24 h-24 mx-auto mb-4 flex items-center justify-center rounded-full bg-green-600"
+                  className="w-24 h-24 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#b8bb26]"
                 >
-                  <span className="text-white text-4xl font-bold">✓</span>
+                  <span className="text-[#1d2021] text-4xl font-bold">✓</span>
                 </motion.div>
               )}
 
-
               <button
                 onClick={handleFaceScan}
-                className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold"
+                className="mt-4 w-full bg-[#b8bb26] hover:bg-[#98971a] text-[#1d2021] py-3 rounded-lg font-semibold"
                 disabled={faceScanLoading || faceScanned}
               >
                 {faceScanLoading
