@@ -42,7 +42,7 @@ def scan_face():
         return False
     # random commit
     # --- Start webcam ---
-    video_capture = cv2.VideoCapture('/dev/video-cam')  # replace with 0 for default camera
+    video_capture = cv2.VideoCapture(0)  # replace with 0 for default camera
 
     if not video_capture.isOpened():
         print("❌ Could not access the webcam.")
