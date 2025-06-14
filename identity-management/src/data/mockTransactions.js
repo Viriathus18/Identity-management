@@ -1,13 +1,11 @@
 // mockTransactions.js
 import { faker } from '@faker-js/faker';
 
-const transactionTypes = ['Sent', 'Received', 'Converted'];
-const statuses = ['Success', 'Failed', 'Incomplete'];
+const transactionTypes = ['Sent', 'Received'];
 const methods = ['Credit Card', 'PayPal', 'Wire Transfer', 'Bank Transfer', 'Debit Card', 'Gpay'];
 
 const createTransaction = (id) => {
   const type = faker.helpers.arrayElement(transactionTypes);
-  const status = faker.helpers.arrayElement(statuses);
   const method = faker.helpers.arrayElement(methods);
   const amount = `${type === 'Received' ? '+' : '-'}${faker.finance.amount(10, 2000, 2)} USD`;
   const person = faker.person.fullName();
@@ -19,7 +17,7 @@ const createTransaction = (id) => {
     type,
     amount,
     method,
-    status,
+    status: 'Success', // Always start with success
     activity,
     person,
     date,

@@ -106,11 +106,11 @@ export default function Dashboard() {
               </h2>
               <p className="text-[#a89984]">Welcome back, we’re happy to have you here!</p>
             </div>
-            <img
+            {/* <img
               src="./img1.jpeg"
               alt="User Avatar"
               className="w-12 h-12 rounded-full shadow-md"
-            />
+            /> */}
           </div>
 
           <div className="bg-[#3c3836] p-6 rounded-2xl shadow-lg mb-6">
@@ -124,7 +124,7 @@ export default function Dashboard() {
                 <option value="">All Types</option>
                 <option value="Sent">Sent</option>
                 <option value="Received">Received</option>
-                <option value="Converted">Converted</option>
+                {/* <option value="Converted">Converted</option> */}
               </select>
 
               <select
@@ -135,7 +135,7 @@ export default function Dashboard() {
                 <option value="">All Status</option>
                 <option value="Success">Success</option>
                 <option value="Failed">Failed</option>
-                <option value="Incomplete">Incomplete</option>
+                {/* <option value="Incomplete">Incomplete</option> */}
               </select>
 
               <input

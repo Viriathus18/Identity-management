@@ -11,7 +11,7 @@ CORS(app)  # Allow frontend to access backend
 
 def scan_face():
     # --- Load and convert reference image ---
-    image_path = 'img1.jpeg'
+    image_path = 'img3.png'
     try:
         pil_image = Image.open(image_path).convert('RGB')
         reference_image = np.array(pil_image)

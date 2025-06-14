@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginRegister from './pages/LoginRegister';
 import Dashboard from './pages/Dashboard';
 import Wallets from "./pages/Wallets";
+import BlockchainTransactionList from './pages/BlockchainTransactionList';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<LoginRegister />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/wallets" element={<Wallets />} />
+        <Route path="/transactions" element={<BlockchainTransactionList />} />
         {/* Add other routes here */}
       </Routes>
     </BrowserRouter>

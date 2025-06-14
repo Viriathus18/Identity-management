@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const navItems = [
   { label: "Dashboard", icon: <Home />, path: "/dashboard" },
-  { label: "Notifications", icon: <Bell />, path: "/notifications" },
+  { label: "Blockchain Test", icon: <Bell />, path: "/transactions" },
   { label: "Wallet", icon: <CreditCard />, path: "/wallets" },
 ];
 
